@@ -13,6 +13,10 @@ no CDN, no external requests, ready for GitHub Pages.
 
 Opening `index.html` straight from disk (`file://`) does not work: browsers block ES modules there.
 
+## Player guide
+
+`guide/EmulatorJS-Player-Guide.pdf` is a 111-page illustrated guide to every mode, hotkey and game asset. It is linked from the start page, the game page, links.html and the F1 panel.
+
 ## Publish on GitHub Pages
 
 1. Commit everything, including `data/cores/*.7z` (largest archive is about 8 MB; the whole set is about 284 MB).
@@ -195,7 +199,7 @@ Only add games you have the right to share: the site is public.
 - Hover any option (or tap its **?**) for a short explanation. **What's changed from the original EmulatorJS** opens
   `ENHANCEMENTS.txt` with every change.
 - In game, press **F1** for hotkeys and options: F2 save, F4 load, F3 slot, F5 pause, F6 fast forward,
-  F8 screenshot, Shift+F8 2.5D view, Shift+F2 save slots with pictures, F9 mute, Shift+F9 performance mode, F10 FPS, Shift+F10 performance stats, F11 fullscreen. On a controller, hold Select and press R1/L1/R2/L2/Start.
+  F8 screenshot, Shift+F8 2.5D view, Shift+F2 save slots with pictures, F9 mute, Shift+F9 performance mode (cycles Quality, Balanced, Performance, Maximum), F10 FPS, Shift+F10 performance stats, F11 fullscreen. On a controller, hold Select and press R1/L1/R2/L2/Start.
 - **Options → Export backup** saves all in-game saves, save states and settings to one file.
 - `play.html` on its own is the game library inside the player (either engine): every ROM and zip in the folders,
   one click to play. `play.html?folder=NES` shows one folder, `&autoplay=1` starts its first game.
@@ -203,6 +207,38 @@ Only add games you have the right to share: the site is public.
   canvas, a picture-sized render buffer (draws only the game picture, 26–65% fewer pixels), audio suspended while paused or in the background, a lean opaque game
   surface (no blending with the page, no unused depth/stencil buffers on 2D systems) and a low-battery
   power saver, saved per game. See the addenda in ENHANCEMENTS.txt.
+- **Lag check** (EmulatorJSMod): the engine watches every game for being too slow, stuttering, uneven speed and
+  freezing, and offers fixes on the spot, cheapest first (a lighter performance mode at once; run-ahead, rewind,
+  audio latency or the low-latency canvas with a reload that keeps your place). It checks again after each fix and
+  offers the next one if needed. Four performance modes: Quality, Balanced, Performance, Maximum. Tick **Fix lag
+  automatically** in the F1 panel to skip the question; **Check now** measures for 10 seconds.
+- **NES and SNES always use the 2xScaleHQ shader** (Graphics Settings → Shaders): it is set at every start, whatever
+  was saved, it has no "Disabled" choice, and performance modes keep it on. Another shader can still be picked for
+  the rest of a session.
+- **Round 33, 50 improvements to the engine and game page** (listed in CHANGES.md):
+  - **Saves:** Undo for saving over a slot, loads and resets; slot download and upload; a resume point every 5
+    minutes with a picture.
+  - **Controls:** frame advance (`.`), volume keys (`-` `=`), Shift+F6 and Shift+F7 speed cycling, Select+Down
+    screenshots, a "your keys" card, a notice when a controller connects and resuming when it returns.
+  - **Touch:** control opacity and size, haptics, landscape lock.
+  - **Lag check:** a lag diary, Copy diagnostics, a speed graph, a learned device mode, pixel-perfect size.
+  - **Session:** break reminders and a sleep timer.
+  - **Game page:** Share, Hide bar and Full screen in the bar, and error screens with Try again, Try the other
+    engine and Copy details.
+- **Round 34, 50 more improvements** (listed in CHANGES.md):
+  - **In game:** a pause menu (F5), named save slots, Ctrl+S, hold Tab to fast-forward, dropping a `.state` file,
+    a save reminder, per-game volume, an input display, a screenshots gallery and picture settings (shape,
+    brightness, contrast, saturation, night tint, smooth scaling, surround).
+  - **Game page:** previous, next and random game, a game info box with checksums and a core switcher, dropping a
+    ROM on the page, picture-in-picture, Alt+Enter and Share moment links that open the game at that moment.
+  - **Library:** search, sorting, last played, Continue and Random.
+- **Round 35, 50 more improvements** (listed in CHANGES.md):
+  - **In game:** notice length, text size and high contrast; status badges for fast forward, slow motion and mute;
+    a history of recent notices; picture settings remembered for each game; Shift+F11 picture shape; screenshot
+    format and size; a controller button tester; milestones; export and import of options; and a speed test for the
+    device.
+  - **Game page:** favourites (★), quick save, load and screenshot buttons, notes for each game, Alt+] and Alt+[ for
+    the next and previous game, and a library with filters, a Recent row and a total play time.
 - Links: `play.html?folder=NES&file=Game.nes`, `play.html?url=roms/game.nes&core=nes`; old `index.html?rom=` (forwarded to Basic)
   links still work.
 

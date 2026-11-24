@@ -21,6 +21,21 @@
         <a id="home" class="button" href="index.html" title="Back to the home page and game library">&#8592; Home</a>
         <a id="links" class="button" href="links.html" title="All parts of this site, including ObsoleteMod">Links</a>
         <h1 id="title">Loading…</h1>
+        <div class="bar-actions d-only">
+            <button id="prevBtn" class="button" type="button" hidden aria-label="Previous game">&#8249;</button>
+            <button id="nextBtn" class="button" type="button" hidden aria-label="Next game">&#8250;</button>
+            <button id="randomBtn" class="button" type="button" hidden aria-label="Random game">&#127922;</button>
+            <button id="favBtn" class="button" type="button" hidden aria-pressed="false">&#9734;</button>
+            <button id="saveBtn" class="button" type="button" hidden title="Quick save (F2)" aria-label="Quick save">&#128190;</button>
+            <button id="loadBtn" class="button" type="button" hidden title="Quick load (F4)" aria-label="Quick load">&#128194;</button>
+            <button id="shotBtn" class="button" type="button" hidden title="Screenshot (F8)" aria-label="Screenshot">&#128247;</button>
+            <button id="infoBtn" class="button" type="button" hidden title="Game details, checksums and the core it runs on">Info</button>
+            <button id="momentBtn" class="button" type="button" hidden title="Copy a link that opens this game at this exact moment">Share moment</button>
+            <button id="pipBtn" class="button" type="button" hidden title="Keep the game in a small window while you use other apps">PiP</button>
+            <button id="shareBtn" class="button" type="button" hidden title="Copy or share a link that opens this game">Share</button>
+            <button id="fsBtn" class="button" type="button" hidden title="Full screen (F11)">&#x26F6; Full screen</button>
+            <button id="hideBarBtn" class="button" type="button" hidden title="Hide this bar for a bigger picture">Hide bar</button>
+        </div>
         <button id="menuBtn" class="icon-btn m-only" type="button" aria-label="Game menu" aria-controls="sheet" aria-expanded="false">&#9776;</button>
         <div class="pickers">
             <label for="platformSelect">Platform</label>
@@ -36,6 +51,7 @@
         <div id="engineTools" class="engine-tools"></div>
     </header>
     <main id="display"><div id="game"></div></main>
+    <button id="showBar" class="show-bar" type="button" hidden aria-label="Show the bar">&#9776; Bar</button>
     <!-- Phone view: the bar hides in landscape; this button brings the game menu back -->
     <button id="floatMenu" class="m-only" type="button" aria-label="Game menu" aria-controls="sheet">&#8943;</button>
     <div id="sheet" class="sheet" hidden>
@@ -55,10 +71,21 @@
                 <a class="button" href="play.html">Library</a>
                 <a class="button" href="links.html">Links</a>
                 <a class="button" href="reference.html">Docs</a>
+                <a class="button" href="guide/EmulatorJS-Player-Guide.pdf" target="_blank" rel="noopener">Player guide (PDF)</a>
+                <button id="sheetShare" class="button" type="button" hidden>Share game</button>
+                <button id="sheetInfo" class="button" type="button" hidden>Game info</button>
+                <button id="sheetFav" class="button" type="button" hidden aria-pressed="false">&#9734; Favourite</button>
+                <button id="sheetSave" class="button" type="button" hidden>Quick save</button>
+                <button id="sheetLoad" class="button" type="button" hidden>Quick load</button>
+                <button id="sheetShot" class="button" type="button" hidden>Screenshot</button>
+                <button id="sheetPrev" class="button" type="button" hidden>&#8249; Previous</button>
+                <button id="sheetNext" class="button" type="button" hidden>Next &#8250;</button>
+                <button id="sheetRandom" class="button" type="button" hidden>Random game</button>
             </nav>
             <p id="a2hs" class="a2hs" hidden>For full screen on iPhone: tap <strong>Share</strong> <span aria-hidden="true">&#x2191;&#xFE0E;</span> then <strong>Add to Home Screen</strong>, and start games from the new icon. Games then open full screen, and Safari keeps your saves more reliably.</p>
         </section>
     </div>
+    <dialog id="infoDialog" class="info-dialog" aria-label="Game details"></dialog>
     <div id="banners" aria-live="polite"></div>
     <script type="module" src="assets/play.js"></script>
 </body>

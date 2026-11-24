@@ -56,6 +56,21 @@ hex, saved moments, watched and changeable bytes, a byte finder, tile bit planes
 as PNG. A thirty-first round is a second pass on phase 5, the Web development case study: four new
 tour stops, two new exercises, exercise checks that no longer go stale, highlighted code, quiz
 scores, a printable handout, and reference docs for every file added since they were first written.
+A thirty-second round adds a lag check to EmulatorJSMod (it notices a game that is too slow,
+stuttering, uneven or frozen and offers fixes on the spot, then checks again), four performance
+modes, and makes 2xScaleHQ the always-on shader for NES and SNES. A thirty-third round makes 50
+improvements to the engine and the game page: saves with Undo, files and a regular resume point;
+frame advance, volume and speed keys; touch control size and opacity; a lag diary, diagnostics and a
+learned device mode; break reminders and a sleep timer; Share, Hide bar and Full screen; and error
+screens that offer a way forward. A thirty-fourth round makes 50 more: a pause menu, named save
+slots, a save reminder, a screenshots gallery, picture settings, per-game volume and an input
+display in game; previous, next and random game, a game info box with checksums and a core switcher,
+picture-in-picture and links that open a game at a shared moment on the game page; and search,
+sorting and Continue in the library. A thirty-fifth round makes 50 more: notice length, text size
+and high contrast, status badges, a history of notices, picture settings kept for each game,
+screenshot format and size, a controller tester, milestones, export and import of options and a
+speed test for the device; and on the game page favourites, quick save and screenshot buttons,
+notes, and library filters.
 
 Nothing in this document changes how games are emulated: the same libretro cores (the supplied .7z
 files, unmodified) do the emulation. What changed is how the cores and games are found, downloaded,
@@ -100,6 +115,10 @@ CONTENTS
   - Addendum (round 29): phase 3 second pass (Museum and exhibit kiosk)
   - Addendum (round 30): phase 4 second pass (Classroom)
   - Addendum (round 31): phase 5 second pass (Web development case study)
+  - Addendum (round 32): lag check, performance modes, 2xScaleHQ for NES and SNES
+  - Addendum (round 33): 50 improvements to the engine and the game page
+  - Addendum (round 34): 50 more improvements to the engine and the game page
+  - Addendum (round 35): 50 more improvements, readability, favourites and notes
 
 ====================================================================================================
 1. OVERVIEW: WHAT IS DIFFERENT AT A GLANCE
@@ -129,6 +148,24 @@ CONTENTS
   - Graphics efficiency (addendum 8): an opaque game surface the browser can copy or overlay instead
     of blending, without the depth and stencil buffers 2D systems never use (4 to 21 MB of video
     memory freed).
+  - Round 35, 50 more improvements (addendum 35): notice length, text size, high contrast, status
+    badges, recent notices, per-game picture settings, Shift+F11 shape, screenshot format and size,
+    a controller tester, milestones, export and import of options, a device speed test; favourites,
+    quick save and screenshot buttons, notes, Alt+] and Alt+[, library filters and a Recent row.
+  - 50 more engine and game-page improvements (addendum 34): a pause menu, named slots, Ctrl+S, hold
+    Tab, state file drop, a save reminder, a screenshots gallery, picture shape and colour settings,
+    per-game volume, an input display; previous, next and random game, game info with checksums and
+    a core switcher, ROM drop, picture-in-picture, Share moment links; library search, sort and
+    Continue.
+  - 50 engine and game-page improvements (addendum 33): Undo for saves, loads and resets, slot
+    files, a resume point every 5 minutes; frame advance, volume and speed keys, a keys card,
+    controller notices; touch control size, opacity and haptics; a lag diary, Copy diagnostics, a
+    speed graph, a learned device mode, pixel-perfect size; break reminders, a sleep timer; Share,
+    Hide bar, Full screen; error screens with Try again and the other engine.
+  - Lag check and performance modes (addendum 32): EmulatorJSMod measures speed, hitches, evenness
+    and freezes every second, names the problem and offers fixes cheapest first (a lighter mode at
+    once; reload-and-resume for start-up settings), then checks whether they helped; Quality,
+    Balanced, Performance and Maximum modes; NES and SNES always use the 2xScaleHQ shader.
   - Web development case study, second pass (addendum 31): 15 tour stops (new: checksums, iframes
     and postMessage, one-file branding, accessibility) and 8 exercises (new: a kiosk language,
     branding your copy), with highlighted code, quiz scores and a printable handout; 38 new
@@ -241,6 +278,19 @@ Playing
     ObsoleteMod.
   - Open play.html (or Open the library in the player on the home page) to browse every game in the
     folders inside the player, with either engine.
+  - Round 35 keys: ? lists the hotkeys, Shift+F11 changes the picture shape, Alt+] and Alt+[ go to
+    the next and previous game, f marks a favourite in the library, and Select with L3 or R3 toggles
+    the FPS counter or mute on a controller.
+  - Round 34 keys: F5 opens the pause menu, Ctrl+S saves, hold Tab to fast-forward, Shift+F1 opens
+    the game settings, Alt+Enter or a double-click toggles full screen, and / jumps to the library
+    search. Info in the bar (or a click on the title) shows the game's checksums and lets you switch
+    cores.
+  - New keys in game: . advances one frame while paused, - and = change the volume, Shift+F6 and
+    Shift+F7 change the fast-forward and slow-motion speed, Esc closes the F1 panel. F1 also holds
+    the sleep timer, break reminders, on-screen control size and opacity, and Copy diagnostics.
+  - If a game lags, use the fix the notice offers, or press F1 and Check now; tick Fix lag
+    automatically to let the engine choose. Shift+F9 cycles Quality, Balanced, Performance and
+    Maximum.
   - To run the web development tour with a class, open devtour.html, press Print the exercises for a
     handout, and let students move with ← and →; Start over clears a shared computer's progress.
   - To teach with the presenter, open a lesson in classroom.html and press Start teaching; Next (or
@@ -686,6 +736,19 @@ and upstream CI/dev-container/packaging files were removed.
   - Threads need https (GitHub Pages) or localhost; the page reloads itself once on the first visit
     to switch them on. Safari and some mobile browsers may not support them.
   - Opening index.html from disk (file://) is blocked by browsers; use a local server.
+  - Round 35: tested in Chrome on desktop and emulated iPhone (see the addendum). A real controller
+    (the button tester and vibration test), the reduced-motion setting and a full storage could not
+    be tried headless; each does nothing where unsupported.
+  - Round 34: tested in Chrome on desktop and emulated iPhone (see the addendum). Picture-in-picture
+    itself, the sound-blocked notice, a real controller and the low-end device start could not be
+    tried headless; each does nothing where the browser lacks the feature.
+  - Round 33: tested in Chrome on desktop and emulated iPhone (see the addendum). A real controller
+    connecting, vibration, landscape lock, the memory notice and the slow-loading notice could not
+    be tried headless; each does nothing where the browser lacks the feature.
+  - Lag check: tested in Chrome on desktop and emulated iPhone with CPU throttling standing in for a
+    slow device (see the round 32 addendum). Real devices differ: thresholds are in CHECK at the top
+    of data/src/performance.js. No SNES game was available to run; SNES uses the same shader rule as
+    NES.
   - Web development case study second pass: tested in Chrome on desktop and emulated iPhone (see the
     round 31 addendum for the list). The exercise checks compare against what ships with the site
     (SHIPPED in assets/devtour.js): when a new lesson, homebrew game or kiosk language is added to
@@ -2105,3 +2168,503 @@ its own).
 - Start over, the printed handout (8 exercises), a new reference doc in the viewer, and tour links
 opening docs.
 - No sideways scrolling on iPhone.
+
+====================================================================================================
+ADDENDUM (ROUND 32): LAG CHECK, PERFORMANCE MODES, 2XSCALEHQ FOR NES AND SNES
+====================================================================================================
+
+The site version is now ejs-local-33. Engine files: data/src/performance.js, data/src/emulator.js,
+data/src/frontend.js and data/src/enhancements.js.
+
+The lag check: the engine notices when a game isn't running properly and offers fixes on the spot.
+
+- What it measures, every second while a game plays:
+----------------------------------------------------
+- emulation speed: game frames against the game's own frame rate;
+- hitches: the screen going three or more refreshes without a new picture;
+- how even the speed is (spread over 10 seconds);
+- long tasks on the page;
+- whether the picture has frozen.
+
+Paused games, hidden tabs, fast forward, slow motion and netplay aren't measured. There is an
+8-second warm-up
+after starting and after every fix.
+
+- What it recognises:
+---------------------
+- Too slow: under 90% speed in 5 of the last 6 seconds. It notes when the game was fine earlier (the
+device may
+be warm) and when graphics are in software.
+- Stuttering: 5 or more hitches in 10 seconds.
+- Uneven speed: spread over ±8%, which can make the sound crackle.
+- Frozen: no new picture for 4 seconds while the game should be running.
+
+- The fixes it offers, the ones that work at once first:
+--------------------------------------------------------
+- a lighter performance mode;
+- turning off run-ahead (it runs every frame twice);
+- turning off rewind (it copies the game every frame);
+- safer audio latency;
+- turning off the low-latency canvas;
+- for a freeze: restarting the game or reloading the player.
+
+Fixes RetroArch only reads at boot save the resume point and reload, so the player carries on from
+the same
+moment. Ten seconds after a fix it checks again: it says "Fixed" with the before and after speed, or
+offers the
+next fix.
+- How it asks. One notice at a time; a worse problem replaces a lesser one. The same problem isn't
+raised again
+for 2 minutes, or 5 after Not now.
+- Fix lag automatically (F1 panel) applies the immediate fixes without asking and shows an Undo.
+Kiosk
+screens always do this, silently.
+- Watch for lag and offer fixes turns the check off for a game.
+- Check now (F1 panel) measures for 10 seconds and lists the fixes for what it found.
+- The F1 panel's lag-check line shows the current state and the last fix's result. The Shift+F10
+stats begin with a
+Health line.
+
+Performance modes: the old on/off performance mode is now four modes, saved per game. Shift+F9
+cycles them.
+
+- Quality: everything on.
+- Balanced: auto frameskip, so the game keeps full speed by skipping a drawn frame when it must.
+- Performance: also 75% render resolution, shader off and no run-ahead.
+- Maximum performance: also 50% render resolution and 128 ms audio.
+
+The low-battery power saver and the low-power flag (play.html?lowpower=1) switch to Performance.
+
+Also fixed:
+-----------
+
+- The frame rate is now learned properly. A 60 fps game could be taken for a 50 fps PAL game when
+its first
+seconds of loading happened to run near 50 fps, which made it read 120% speed. Now the rate comes
+from five steady
+seconds and is snapped to 50, 60 or 75. 50 needs a very steady reading or a European/PAL name.
+- Notices stack in one column instead of covering each other. On phones they sit at the top of the
+game area,
+clear of the touch controls, with the text above the buttons.
+
+NES and SNES always use the 2xScaleHQ shader:
+---------------------------------------------
+
+- It is applied at every start, after the saved settings, so it is the default whatever was saved.
+- The Shaders menu for NES and SNES has no "Disabled" choice, and "disabled" from anywhere (saved
+settings, menus,
+other code) becomes 2xScaleHQ.
+- Performance modes and the shader bypass leave it on for NES and SNES.
+- Another shader (a CRT one, say) can still be picked; it lasts until the next start.
+- It applies whether the system is named nes/snes or by its core (fceumm, nestopia, snes9x, bsnes).
+
+Tested in Chrome on desktop and emulated iPhone, with Sprite Lab (NES) slowed by CPU throttling:
+
+- 2xScaleHQ at start with another shader saved, with no Disabled choice, with "disabled" refused,
+and kept in
+Performance and Maximum modes.
+- A healthy game read as "Good: 100%".
+- A slowed game detected with one notice. Switching to Balanced was judged "Fixed (46% → 100%)" once
+the throttle
+was lifted.
+- Automatic fixing with Undo, and a frozen picture offering Restart and Reload.
+- Shift+F9 cycling the modes, Check now reporting with fix buttons, and the Maximum mode's 50%
+render and 128 ms
+audio.
+- Notices stacked at the top on iPhone.
+- The Classroom and kiosk tests still pass.
+
+====================================================================================================
+ADDENDUM (ROUND 33): 50 IMPROVEMENTS TO THE ENGINE AND THE GAME PAGE
+====================================================================================================
+
+The site version is now ejs-local-34. Files: data/src/performance.js, data/src/enhancements.js,
+data/src/emulator.js, assets/play.js, play.html and assets/app.css.
+
+Lag check and performance (performance.js):
+-------------------------------------------
+
+  1. The lag check measures again from scratch after the tab comes back, a resize or fullscreen
+     change, loading or quick-saving a state, a reset or resuming from pause. Those moments are no
+     longer reported as lag.
+  2. Hitches are judged against the game's frames as well as the screen's, so 120 and 144 Hz screens
+     aren't over-reported.
+  3. Lag diary. The last ten problems, fixes and results for each game, in the F1 panel.
+  4. Learned device mode. When three or more games needed a lighter mode, a game played for the
+     first time starts in the most common one, with a notice and Use Quality. A new game no longer
+     inherits another game's mode.
+  5. A notice, once a session, when the screen's refresh rate isn't a whole multiple of the game's
+     (for example 75 Hz for 60 fps), explaining why motion can look uneven.
+  6. Memory check (Chromium). When the page's JavaScript memory is over 85% full, it offers a reload
+     that keeps your place.
+  7. Speed graph. The last 30 seconds as bars in the Shift+F10 stats.
+  8. The stats show this session's lag problems and fixes.
+  9. Copy diagnostics (F1). A text report of the device, GPU, game, core, shader, mode, health,
+     frame rate, audio, memory, settings and lag diary.
+  10. Nothing is measured while a video is being recorded.
+  11. Pixel-perfect size (F1). The picture is shown at a whole multiple of the game's lines, so
+      every console pixel is the same size.
+
+Saves (enhancements.js):
+------------------------
+
+  12. A resume point every 5 minutes while playing (option on by default), with a picture.
+  13. Undo for saving over a slot. For 7 seconds; the slot's picture comes back too.
+  14. Download a slot as a .state file from the save slot picker.
+  15. Load file… puts a save state file into the chosen slot.
+  16. Resume point in the slot picker, with how long ago it was saved.
+  17. The resume prompt shows a picture of that moment.
+  18. A warning when the site's storage is over 90% full.
+  19. The F1 panel says whether saves are protected from browser clean-up, with Protect saves.
+  20. Undo buttons after loading a slot, going back to the resume point and resetting.
+
+Controls:
+---------
+
+  21. A notice when a controller connects, with its name and player number.
+  22. A game paused because a controller disconnected carries on when it comes back.
+  23. Select + Down takes a screenshot.
+  24. Shift+F6 cycles the fast-forward speed (×1.5, ×2, ×3, ×4, unlimited).
+  25. Shift+F7 cycles the slow-motion speed.
+  26. Frame advance: "." while paused runs exactly one frame.
+  27. Volume keys: − and = in 10% steps, with the level on screen. These keys and "." only act when
+      no player has them in the control map, and not in keyboard mode.
+  28. Your keys for this game in the F1 panel: each button with its key and controller button.
+  29. Pause when the window loses focus (option, off by default).
+  30. Esc closes the F1 panel, and the panel takes the keyboard focus when it opens.
+
+Touch and phones:
+-----------------
+
+  31. A short vibration on on-screen button presses (option, Android).
+  32. On-screen controls opacity: solid, see-through, faint.
+  33. On-screen control size: small, normal, large.
+  34. No long-press pop-ups or text selection on the on-screen controls, and no pull-to-refresh on
+      the game page on tablets and desktops (the phone view had it already).
+  35. Landscape lock in full screen on phones (option, where the browser allows it).
+
+Picture and sound:
+------------------
+
+  36. Copy on the screenshot notice puts the picture on the clipboard.
+  37. The lock screen and the system media controls show a picture of the game.
+  38. The tab title shows ⏸ while paused.
+  39. The tab title shows the game and its system (sprite-lab · NES – EmulatorJS, or the site's own
+      name).
+  40. Scanline strength: light, normal, strong.
+
+Session:
+--------
+
+  41. Break reminder every 30, 60 or 90 minutes of play (option, off by default).
+  42. Sleep timer (15 or 30 minutes, or 1 hour). It pauses the game and saves your place.
+  43. Time played this session in the F1 panel.
+  44. Reset these options puts the F1 options back to their defaults; saves aren't touched.
+
+Game page (play.js, play.html) and start errors:
+------------------------------------------------
+
+  45. Share in the bar (and Share game in the phone menu). It copies, or shares on phones, a link
+      that opens the game, for games from a folder, a web address or the showcase.
+  46. The page's error screen gains Try again, Try the other engine and Copy details.
+  47. The engine's "could not start" screen gains the same buttons, plus an explanation when the
+      device is offline or a download failed.
+  48. Slow loading. A game still loading after 20 seconds gets a notice with "Try the other engine"
+      and Reload.
+  49. Hide bar gives the game the whole window; a small Bar button brings it back. Remembered.
+  50. Full screen button in the bar (desktop).
+
+Also fixed: on phones, the touch controls were drawn over the F1 panel; they are hidden while it is
+open.
+
+Tested in Chrome on desktop and emulated iPhone with Sprite Lab:
+----------------------------------------------------------------
+
+- The tab title, with and without ⏸.
+- Saving over a slot and Undo (bytes identical to before), Undo after a load, slot download, the
+resume point with
+its picture.
+- Shift+F6 and Shift+F7 cycling (3.0 → 4.0 → unlimited; 3.0 → 4.0), frame advance (exactly one frame
+each press),
+volume keys (50% → 30% → 40%).
+- The F1 keys card, menus and focus, Esc closing it, scanline strength and touch opacity and size,
+the screenshot
+notice with Copy, and the sleep timer pausing.
+- The learned Balanced start and Use Quality, the diary and diagnostics, the speed graph, pixel-
+perfect size (448
+lines for a 224-line picture), no measuring while recording, the refresh-rate notice, measuring
+again after a
+resize.
+- Share, Hide bar and Bar, Full screen.
+- Both error screens.
+- On iPhone: touch controls at large size and 70% opacity, Share game in the menu, the F1 panel
+without the touch
+controls over it.
+- The lag check, kiosk and Classroom tests still pass.
+
+Not tested here: a real controller connecting (headless Chrome has none), vibration, landscape lock,
+the
+memory-pressure notice and the slow-loading notice. Each is guarded so it does nothing where
+unsupported.
+
+====================================================================================================
+ADDENDUM (ROUND 34): 50 MORE IMPROVEMENTS TO THE ENGINE AND THE GAME PAGE
+====================================================================================================
+
+The site version is now ejs-local-35. Files: data/src/performance.js, data/src/enhancements.js,
+data/src/emulator.js, data/src/frontend.js, assets/play.js, the new assets/play-extras.js,
+play.html,
+assets/app.css and sw.js.
+
+Picture and performance (performance.js):
+-----------------------------------------
+
+  1. Picture shape (F1 → Picture): original, 4:3, 16:9, square pixels or fill the area. The render
+     buffer keeps the game's own shape, so the core draws no bars and the picture stays sharp.
+  2. Devices with 2 GB of memory or two processor cores start new games in Balanced mode, with the
+     reason in the notice and Use Quality to undo it.
+  3. After 10 smooth minutes in a lighter mode, the lag check offers Quality again (at most once a
+     week).
+  4. The Shift+F10 stats move to another corner when clicked; the corner is remembered.
+
+Engine (emulator.js, frontend.js):
+----------------------------------
+
+  5. A core that stops (an abort inside the emulator) now shows a notice with Reload and Copy
+     details instead of a frozen picture.
+  6. Game settings (Shift+F1, or the button in the F1 panel) opens the engine's own settings menu
+     directly.
+
+Pause, saves and keys (enhancements.js):
+----------------------------------------
+
+  7. Pause menu. F5 (or Start + Select on a controller) pauses with a menu: Resume, Quick save,
+     Quick load, Save slots, Reset and Options. Arrow keys, Enter, Esc and the controller all work
+     in it.
+  8. Slot names. Name… in the save slot picker; the name shows as "Slot 2 · before the boss".
+  9. Ctrl+S quick-saves (as well as F2).
+  10. Hold Tab to fast-forward; letting go returns to normal speed (option, on by default).
+  11. Select + Left / Right on a controller changes the save slot.
+  12. A dropped .state file on the game is loaded straight away, with Undo.
+  13. A save state that is empty or from another core says so instead of failing silently.
+  14. Save reminder: after 30 minutes without a save, a notice with Quick save (option, on by
+      default).
+  15. Ask before leaving the page while playing (option, off by default); the resume point is saved
+      first.
+
+F1 panel:
+---------
+
+  16. Sections fold away (keys, hotkeys, options, picture), and the panel remembers which are open.
+  17. A line with the system, the core, whether it runs single- or multi-threaded and the EmulatorJS
+      version.
+  18. The connected controllers, by player.
+  19. Screenshots gallery: the last 24 screenshots of each game, kept in the browser, with Save,
+      Copy and Delete.
+  20. Brightness, contrast and saturation sliders.
+  21. Night tint: warmer colours with less blue light.
+  22. Smooth scaling for those who prefer soft edges to sharp pixels.
+  23. Surround colour around the picture: black, grey or the site's colour.
+  24. Reset these options now also resets the picture settings.
+
+Sound, feedback and accessibility:
+----------------------------------
+
+  25. Each game keeps its own volume and mute (option, on by default).
+  26. When the browser holds sound back until the page is touched, a notice says so, with Turn sound
+      on.
+  27. Input display: the buttons player 1 is pressing, drawn in a corner (option, for streams and
+      teaching).
+  28. The engine's on-screen messages are also read out by screen readers.
+  29. Keyboard focus is clearly outlined in the panels and menus.
+  30. The frame-rate counter is green at full speed, amber a little under and red well under.
+  31. Double-click the picture for full screen (not for games played with the mouse).
+  32. A game that finished loading in a background tab shows "● Ready" in the tab title until the
+      tab is opened.
+  33. An error in the emulator's code during play gets one notice with Reload (your place is kept)
+      and Copy details.
+  34. A game in picture-in-picture keeps running when the tab is hidden.
+
+Game page (play.js, play-extras.js, play.html):
+-----------------------------------------------
+
+  35. Previous and Next game in the folder (or in recent games), in the bar and the phone menu.
+  36. Random game from the same list.
+  37. Game info (Info in the bar, Game info in the phone menu, or a click on the title): file,
+      system, core, time played and size. The game pauses while it is open.
+  38. The info box works out the CRC32, MD5 and SHA-1, with Copy details, to check a file against a
+      database.
+  39. Core switcher in the info box: choose another installed core for the system and restart; your
+      place is saved first.
+  40. Drop a game file on the game page to play it (the system is detected the same way as on the
+      home page).
+  41. The title's tooltip shows the time played.
+  42. Alt+Enter toggles full screen.
+  43. PiP: the game in a small floating window while you use other apps (Chrome and Edge).
+  44. Share moment: copies a link that opens the game at that exact moment (a compressed save state
+      in the link, up to 48 KB).
+  45. Opening such a link starts the game and then loads that moment.
+
+Game library (play.html without a game):
+----------------------------------------
+
+  46. Search box (press / to jump to it, Enter plays the first match, Esc clears it).
+  47. Sort A–Z or by most recently played; remembered.
+  48. Each game shows when it was last played and the time played.
+  49. Continue: the game played last, at the top.
+  50. Random picks a game from those shown.
+
+Tested in Chrome on desktop and emulated iPhone with Sprite Lab (and the three NES homebrew games
+copied into a
+
+temporary library folder, removed again before packaging):
+----------------------------------------------------------
+
+- The pause menu (items, arrow keys, Esc resumes), Ctrl+S, hold Tab on and off.
+- Two screenshots stored, the gallery with Save, Copy and Delete (deleting left one), the folding
+sections, the
+controllers line.
+- Picture filters on and back to none, the input display lighting ▶ for Right, the save reminder
+after 31 minutes,
+the empty-state message (also in the screen-reader region), a dropped .state file with Undo, the
+per-game volume
+(30% stored), the error notice and the core-stopped notice.
+- 16:9 shape (1.778) and back to the original (1.306).
+- Previous / Next / Random / Info / Share moment / PiP in the bar; the info box with checksums
+matching the file,
+both NES cores listed, paused while open and running again after.
+- A Share moment link (about 1 KB for Sprite Lab) opening the game at that moment; dropping a ROM on
+the page
+opening it.
+- The library: Continue, search, "No game matches", sorting by recent, last played and time played.
+- iPhone: Game info, Previous, Next and Random in the menu, the info box.
+- The lag check, kiosk and Classroom tests still pass.
+
+Not tested here: picture-in-picture itself and the sound-blocked notice (headless Chrome allows
+sound and has no
+PiP window), a real controller, and the low-end device start. Each is guarded so it does nothing
+where unsupported.
+
+====================================================================================================
+ADDENDUM (ROUND 35): 50 MORE IMPROVEMENTS, READABILITY, FAVOURITES AND NOTES
+====================================================================================================
+
+The site version is now ejs-local-36. Files: data/src/enhancements.js, data/src/performance.js,
+assets/play-extras.js, assets/play.js, assets/library.js, play.html, assets/app.css and sw.js.
+
+Readability and comfort (enhancements.js):
+------------------------------------------
+
+  1. How long notices stay (short, normal, long, until closed).
+  2. Panel and notice text size (normal, large, larger).
+  3. High-contrast panels and notices.
+  4. Panels and notices stop animating when the system asks for reduced motion.
+  5. When the cursor hides (1, 2.5 or 5 seconds).
+  6. Recent notices in the F1 panel: the last twelve, with the time, so one that went by too fast
+     can be read again.
+  7. Status badges on the picture for fast forward (with its speed), slow motion, mute and
+     recording.
+  8. The FPS counter also names the performance mode when it isn't Quality.
+  9. ? shows the list of hotkeys.
+
+Picture and screenshots:
+------------------------
+
+  10. Picture settings are remembered per game (brightness, contrast, colour, night tint, smooth
+      scaling, surround).
+  11. Shift+F11 cycles the picture shape: original, 4:3, square pixels, 16:9, fill.
+  12. A system remembers the shape you chose last, so a new SNES game starts in 4:3 if that is what
+      you picked.
+  13. Screenshot format (PNG, JPEG, WebP).
+  14. Screenshot size (1×, 2×, 3×).
+  15. The screenshot notice has a Gallery button.
+  16. Click a screenshot in the gallery to see it large; Esc closes it first.
+  17. Delete all in the gallery (asks twice).
+  18. The gallery heading shows how many pictures there are.
+
+Controllers and keys:
+---------------------
+
+  19. Live button tester in the F1 panel: the buttons and sticks the controller is sending right
+      now.
+  20. Test vibration for controllers that can rumble.
+  21. Select + L3 turns the FPS counter on and off.
+  22. Select + R3 mutes.
+  23. The pause menu has a Screenshot item.
+  24. The pause menu shows this session's time and the time played in all.
+
+Saves, play time and safety:
+----------------------------
+
+  25. The F1 panel shows when you last saved.
+  26. Play time per day: today and the last 7 days, over all games.
+  27. Milestones: a notice when you pass 1, 5, 10 or 25 hours in a game (option).
+  28. A notice when the connection drops or returns, saying the game keeps working (option).
+  29. A notice when a resume point can't be stored (storage full or blocked), with a button to the
+      save slots.
+  30. A failed promise inside the emulator's code is reported like any other error, once, with
+      Reload and Copy details.
+  31. Export options as a file and Import options from one, to move the F1 settings to another
+      device.
+
+Performance (performance.js):
+-----------------------------
+
+  32. Test this device's speed: runs the game flat out for four seconds and reports how many times
+      faster than normal it goes, with advice and a button for the suggested mode.
+
+Game page (play-extras.js, play.html):
+--------------------------------------
+
+  33. Favourite (★) in the bar and the phone menu.
+  34. Favourites are listed first in the library, with a star beside each game.
+  35. Press f on a game in the library to add or remove a favourite.
+  36. A library filter: all, favourites, not played yet, played.
+  37. The library shows the total time played.
+  38. A Recent row of the games played lately, one click each.
+  39. The library search is kept while you move between pages in a session.
+  40. Quick save, Quick load and Screenshot buttons in the bar, and in the phone menu.
+  41. Alt+] and Alt+[ go to the next and previous game.
+  42. Notes for each game in the info box, kept on this device.
+  43. Download file in the info box.
+  44. About this game in the info box for homebrew games (their showcase page).
+  45. Reload player in the info box (your place is saved first).
+  46. The info box shows when the game was last played.
+  47. A hint, "Drop a game file to play it", appears when a file is dragged over the page.
+  48. "1 day ago" instead of "1 days ago".
+
+Also:
+-----
+
+  49. The F1 panel's Reset these options also resets the new options, the text size and the badges.
+  50. Options now carry over cleanly: the new ones are included in export and import, and kiosk
+      screens ignore them all.
+
+Tested in Chrome on desktop and emulated iPhone with Sprite Lab (the three NES homebrew games were
+copied into a
+
+temporary library folder for the library tests and removed again):
+------------------------------------------------------------------
+
+- Shift+F11 cycling (and the system remembering 4:3), the fast-forward and mute badges, the ? key,
+the panel's last
+save line, the new menus, the notices section, text size 1.5 and high contrast, notices that stay
+until closed.
+- JPEG screenshots at 2× (419 KB), the Gallery button, the large view and Esc closing it before the
+panel, picture
+settings stored for the game, options export (39 settings), the notice history, play time per day,
+the milestone
+notice at 1 hour, the offline notice, the rejected-promise notice, the storage notice.
+- The pause menu with Screenshot and times, the "· balanced" FPS suffix, the speed test (it returned
+the fast-forward
+setting to what it was).
+- The bar's Favourite, Quick save, Info (notes, download of 24,592 bytes, About this game) buttons.
+- The library with favourites first, the star and the f key, the filters, Recent, the total, and the
+search kept after
+a reload.
+- iPhone: the menu's Favourite, Quick save, Quick load and Screenshot buttons.
+- The lag check, kiosk and Classroom tests still pass.
+
+Not tested here: a real controller (the live tester and Test vibration), the screen's reduced-motion
+setting, and a
+full storage. Each is guarded so it does nothing where unsupported.

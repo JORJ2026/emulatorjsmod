@@ -1,7 +1,7 @@
 // Service worker for static hosting (GitHub Pages).
 // 1. Adds the COOP/COEP headers GitHub Pages cannot send, so threaded cores can use SharedArrayBuffer.
 // 2. Caches the app and cores locally for fast repeat loads and offline use.
-const VERSION = "ejs-local-32";
+const VERSION = "ejs-local-38";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 const CORE_CACHE = `${VERSION}-cores`;
@@ -76,6 +76,7 @@ const SHELL_FILES = [
     "assets/nostalgist-player.js",
     "assets/app.js",
     "assets/play.js",
+    "assets/play-extras.js",
     "assets/common.js",
     "assets/folders.js",
     "assets/tooltips.js",
