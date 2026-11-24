@@ -1,0 +1,28 @@
+{
+    "title": "Bayside Bandit",
+    "author": "Raccoon Road",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "snes",
+    "rom": "bayside-bandit.sfc",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Action",
+    "players": 1,
+    "description": "A 16-bit crime caper starring a masked raccoon. The menu offers New Game, Continue, Free Roam, Mission Select and a Pursuit Challenge.\n\nIn-ROM notice: (C) 2026 Raccoon Road.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "action",
+        "crime",
+        "snes"
+    ]
+}

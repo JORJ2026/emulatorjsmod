@@ -1,0 +1,28 @@
+{
+    "title": "Wildwood",
+    "author": "Unknown (supplied with the site)",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "gba",
+    "rom": "wildwood.gba",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Survival",
+    "players": 1,
+    "description": "A survival story for the Game Boy Advance. This is version 0.4. Choose Play or Settings from the title menu.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "survival",
+        "gba",
+        "work in progress"
+    ]
+}

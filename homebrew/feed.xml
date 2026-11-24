@@ -3,7 +3,63 @@
   <title>EmulatorJS: homebrew releases</title>
   <id>urn:ejs-homebrew:feed</id>
   <link rel="alternate" href="homebrew.html"/>
-  <updated>2026-11-19T00:00:00Z</updated>
+  <updated>2026-11-23T00:00:00Z</updated>
+  <entry>
+    <title>Bayside Bandit 1.0</title>
+    <id>urn:ejs-homebrew:bayside-bandit:1.0</id>
+    <link rel="alternate" href="homebrew/bayside-bandit/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Raccoon Road</name></author>
+    <summary>A 16-bit crime caper starring a masked raccoon. The menu offers New Game, Continue, Free Roam, Mission Select and a Pursuit Challenge.</summary>
+  </entry>
+  <entry>
+    <title>Golf Solitaire 1.0</title>
+    <id>urn:ejs-homebrew:golf-solitaire:1.0</id>
+    <link rel="alternate" href="homebrew/golf-solitaire/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Unknown (supplied with the site)</name></author>
+    <summary>Two classic card games, Golf and Klondike, on one Game Boy Advance cartridge. Press Start at the title screen.</summary>
+  </entry>
+  <entry>
+    <title>Jacks or Better! 1.0</title>
+    <id>urn:ejs-homebrew:jacks-or-better:1.0</id>
+    <link rel="alternate" href="homebrew/jacks-or-better/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Jack Rose Jr</name></author>
+    <summary>Solitaire and casino card games for the Super Nintendo, with a joker mascot and a pay table.</summary>
+  </entry>
+  <entry>
+    <title>Lumi's Tower 1.0</title>
+    <id>urn:ejs-homebrew:lumis-tower:1.0</id>
+    <link rel="alternate" href="homebrew/lumis-tower/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Jack Rose Jr</name></author>
+    <summary>A puzzle game with a lantern. You choose a save slot (five puzzles and one lantern in slot 1) with Up and Down, then press A to start.</summary>
+  </entry>
+  <entry>
+    <title>Pip's Pizza Panic 1.0</title>
+    <id>urn:ejs-homebrew:pips-pizza-panic:1.0</id>
+    <link rel="alternate" href="homebrew/pips-pizza-panic/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Pip Games</name></author>
+    <summary>A bright 16-bit arcade game starring Pip the penguin, shown over a sunset town with pizzas. Press A or Start at the title screen.</summary>
+  </entry>
+  <entry>
+    <title>The Borrowed Hour 1.0</title>
+    <id>urn:ejs-homebrew:borrowed-hour:1.0</id>
+    <link rel="alternate" href="homebrew/borrowed-hour/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Unknown (supplied with the site)</name></author>
+    <summary>Spend stolen minutes to make an impossible connection. A Game Boy Advance story game; press A or Start on the title screen.</summary>
+  </entry>
+  <entry>
+    <title>Wildwood 1.0</title>
+    <id>urn:ejs-homebrew:wildwood:1.0</id>
+    <link rel="alternate" href="homebrew/wildwood/"/>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <author><name>Unknown (supplied with the site)</name></author>
+    <summary>A survival story for the Game Boy Advance. This is version 0.4. Choose Play or Settings from the title menu.</summary>
+  </entry>
   <entry>
     <title>Button Check 1.0</title>
     <id>urn:ejs-homebrew:button-check:1.0</id>

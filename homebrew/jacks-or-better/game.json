@@ -1,0 +1,29 @@
+{
+    "title": "Jacks or Better!",
+    "author": "Jack Rose Jr",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "snes",
+    "rom": "jacks-or-better.sfc",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Cards",
+    "players": 1,
+    "description": "Solitaire and casino card games for the Super Nintendo, with a joker mascot and a pay table.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "cards",
+        "solitaire",
+        "casino",
+        "snes"
+    ]
+}

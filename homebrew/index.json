@@ -1,6 +1,43 @@
 {
  "games": [
   {
+   "folder": "bayside-bandit",
+   "title": "Bayside Bandit",
+   "author": "Raccoon Road",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "snes",
+   "core": null,
+   "rom": "bayside-bandit.sfc",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Action",
+   "players": 1,
+   "tags": [
+    "action",
+    "crime",
+    "snes"
+   ],
+   "description": "A 16-bit crime caper starring a masked raccoon. The menu offers New Game, Continue, Free Roam, Mission Select and a Pursuit Challenge.\n\nIn-ROM notice: (C) 2026 Raccoon Road.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 1048576,
+   "crc32": "fd2cb70c",
+   "md5": "a75ee9751de92292ac95f8a65fdd22e2",
+   "sha1": "af01ad37ebba66ede90a921d54bfbb7a7f78e747"
+  },
+  {
    "folder": "button-check",
    "title": "Button Check",
    "author": "EmulatorJS local edition",
@@ -33,6 +70,118 @@
    "crc32": "06793ea3",
    "md5": "93c8121c7e32123c5652e74eefb7b2de",
    "sha1": "8c43dcfb1b6d38567ca00c6f6a7f611b5b5b64b3"
+  },
+  {
+   "folder": "golf-solitaire",
+   "title": "Golf Solitaire",
+   "author": "Unknown (supplied with the site)",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "gba",
+   "core": null,
+   "rom": "golf-solitaire.gba",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Cards",
+   "players": 1,
+   "tags": [
+    "cards",
+    "solitaire",
+    "gba"
+   ],
+   "description": "Two classic card games, Golf and Klondike, on one Game Boy Advance cartridge. Press Start at the title screen.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 65536,
+   "crc32": "5b1d00eb",
+   "md5": "050808def45a0e4da5b3b59786cfe424",
+   "sha1": "4bef20e8807a59ef2f57ec650b9cad6b4bd18a21"
+  },
+  {
+   "folder": "jacks-or-better",
+   "title": "Jacks or Better!",
+   "author": "Jack Rose Jr",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "snes",
+   "core": null,
+   "rom": "jacks-or-better.sfc",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Cards",
+   "players": 1,
+   "tags": [
+    "cards",
+    "solitaire",
+    "casino",
+    "snes"
+   ],
+   "description": "Solitaire and casino card games for the Super Nintendo, with a joker mascot and a pay table.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 1048576,
+   "crc32": "c73abc95",
+   "md5": "be9a8052ead2f7b182ef20759e1894c6",
+   "sha1": "21d4b470ba355890f832d47cf9100df424dc5d41"
+  },
+  {
+   "folder": "lumis-tower",
+   "title": "Lumi's Tower",
+   "author": "Jack Rose Jr",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "snes",
+   "core": null,
+   "rom": "lumis-tower.sfc",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Puzzle",
+   "players": 1,
+   "tags": [
+    "puzzle",
+    "lantern",
+    "snes"
+   ],
+   "description": "A puzzle game with a lantern. You choose a save slot (five puzzles and one lantern in slot 1) with Up and Down, then press A to start.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 1048576,
+   "crc32": "9ed28f7f",
+   "md5": "f50dc27d24d7a268987c2742960645d8",
+   "sha1": "2c4a65067b717a390f9c3e61b935d646374004dd"
   },
   {
    "folder": "palette-explorer",
@@ -76,6 +225,43 @@
    "crc32": "59b03037",
    "md5": "5bd9e50e67e98dd316abe79c6ead3e1b",
    "sha1": "94ddd4736aec0d54aa08cd7e229f5a3b2ca43062"
+  },
+  {
+   "folder": "pips-pizza-panic",
+   "title": "Pip's Pizza Panic",
+   "author": "Pip Games",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "snes",
+   "core": null,
+   "rom": "pips-pizza-panic.sfc",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Arcade",
+   "players": 1,
+   "tags": [
+    "arcade",
+    "pizza",
+    "snes"
+   ],
+   "description": "A bright 16-bit arcade game starring Pip the penguin, shown over a sunset town with pizzas. Press A or Start at the title screen.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 524288,
+   "crc32": "2e63d494",
+   "md5": "b181ad4710592ca380f6c45548f7559a",
+   "sha1": "7c3f0e7955f9d496cb34bffebb1e21ca8da96c69"
   },
   {
    "folder": "sprite-lab",
@@ -143,6 +329,79 @@
    "crc32": "6e6b34f0",
    "md5": "36151f2eb3e8c49256d0b7e5165ccfbb",
    "sha1": "9968bc93886a03b236219026efa520438e1be783"
+  },
+  {
+   "folder": "borrowed-hour",
+   "title": "The Borrowed Hour",
+   "author": "Unknown (supplied with the site)",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "gba",
+   "core": null,
+   "rom": "borrowed-hour.gba",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Puzzle",
+   "players": 1,
+   "tags": [
+    "story",
+    "gba"
+   ],
+   "description": "Spend stolen minutes to make an impossible connection. A Game Boy Advance story game; press A or Start on the title screen.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 524288,
+   "crc32": "b405d7de",
+   "md5": "fe679a6ab592c17bf14931ed3ccca786",
+   "sha1": "9da2faa8ff919060486c4ec0d5fd8e5959d391c5"
+  },
+  {
+   "folder": "wildwood",
+   "title": "Wildwood",
+   "author": "Unknown (supplied with the site)",
+   "credits": [],
+   "year": 2026,
+   "version": "1.0",
+   "updated": "2026-11-23",
+   "system": "gba",
+   "core": null,
+   "rom": "wildwood.gba",
+   "license": "Supplied by the site owner for this site; terms not stated in the file",
+   "genre": "Survival",
+   "players": 1,
+   "tags": [
+    "survival",
+    "gba",
+    "work in progress"
+   ],
+   "description": "A survival story for the Game Boy Advance. This is version 0.4. Choose Play or Settings from the title menu.",
+   "controls": {
+    "Up": "Move or choose",
+    "Down": "Move or choose",
+    "A": "Select / act",
+    "Start": "Begin or confirm"
+   },
+   "links": [],
+   "screenshots": [
+    "screenshot-1.png"
+   ],
+   "video": null,
+   "versions": [],
+   "size": 1048576,
+   "crc32": "5429cc04",
+   "md5": "e8e6dd7726da0a91827f8c7b9f310850",
+   "sha1": "73e045268e0de185989807e993661178ec042f03"
   }
  ]
 }

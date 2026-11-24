@@ -1,0 +1,28 @@
+{
+    "title": "Lumi's Tower",
+    "author": "Jack Rose Jr",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "snes",
+    "rom": "lumis-tower.sfc",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Puzzle",
+    "players": 1,
+    "description": "A puzzle game with a lantern. You choose a save slot (five puzzles and one lantern in slot 1) with Up and Down, then press A to start.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "puzzle",
+        "lantern",
+        "snes"
+    ]
+}

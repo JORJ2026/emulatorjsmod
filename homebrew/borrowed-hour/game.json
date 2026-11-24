@@ -1,0 +1,27 @@
+{
+    "title": "The Borrowed Hour",
+    "author": "Unknown (supplied with the site)",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "gba",
+    "rom": "borrowed-hour.gba",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Puzzle",
+    "players": 1,
+    "description": "Spend stolen minutes to make an impossible connection. A Game Boy Advance story game; press A or Start on the title screen.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "story",
+        "gba"
+    ]
+}

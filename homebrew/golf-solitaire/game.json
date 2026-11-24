@@ -1,0 +1,28 @@
+{
+    "title": "Golf Solitaire",
+    "author": "Unknown (supplied with the site)",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "gba",
+    "rom": "golf-solitaire.gba",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Cards",
+    "players": 1,
+    "description": "Two classic card games, Golf and Klondike, on one Game Boy Advance cartridge. Press Start at the title screen.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "cards",
+        "solitaire",
+        "gba"
+    ]
+}

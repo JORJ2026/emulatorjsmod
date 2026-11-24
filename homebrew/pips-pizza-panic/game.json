@@ -1,0 +1,28 @@
+{
+    "title": "Pip's Pizza Panic",
+    "author": "Pip Games",
+    "year": 2026,
+    "version": "1.0",
+    "updated": "2026-11-23",
+    "system": "snes",
+    "rom": "pips-pizza-panic.sfc",
+    "license": "Supplied by the site owner for this site; terms not stated in the file",
+    "genre": "Arcade",
+    "players": 1,
+    "description": "A bright 16-bit arcade game starring Pip the penguin, shown over a sunset town with pizzas. Press A or Start at the title screen.",
+    "controls": {
+        "Up": "Move or choose",
+        "Down": "Move or choose",
+        "A": "Select / act",
+        "Start": "Begin or confirm"
+    },
+    "screenshots": [
+        "screenshot-1.png"
+    ],
+    "links": [],
+    "tags": [
+        "arcade",
+        "pizza",
+        "snes"
+    ]
+}
