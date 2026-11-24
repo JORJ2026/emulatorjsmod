@@ -8,9 +8,10 @@ import { SYSTEMS, extensionOf, labelFor, detectSystem } from "./detect.js";
 import * as library from "./library.js";
 import * as collection from "./collection-store.js";
 import { loadFolders, romUrl, gameTitle, playUrl } from "./folders.js";
-import { $, params, flag, needsThreads, isAvailable, loadManifest, readOptions, setupServiceWorker, ENGINES, getEngine, setEngine, prefetchCore, preferredCore, coreInstalled, coreNeedsThreads } from "./common.js";
+import { $, banner, params, flag, needsThreads, isAvailable, loadManifest, readOptions, setupServiceWorker, ENGINES, getEngine, setEngine, prefetchCore, preferredCore, coreInstalled, coreNeedsThreads } from "./common.js";
 import { cores as CORE_TABLE } from "../data/src/consts.js";
 import { initDevice, onOrientation, device } from "./mobile.js";
+import * as extras from "./play-extras.js";
 
 const RECENT = "__recent";
 
@@ -145,28 +146,128 @@ function fillEngines(current) {
     });
 }
 
+let currentEngine = null;
 function showError(message, action) {
     kioskPost("error", { message });
     $("title").textContent = "Can't start this game";
     const box = document.createElement("div");
     box.className = "play-error";
+    // Round 33: offline, a download failing usually means the files were never saved on this device
+    if (!navigator.onLine || /failed to fetch|networkerror|load failed|network error/i.test(message)) {
+        const off = document.createElement("p");
+        off.className = "play-error-offline";
+        off.textContent = navigator.onLine
+            ? "A file could not be downloaded. Check the connection and try again."
+            : "You're offline, and this game's files (or its emulator core) aren't saved on this device yet. Play it once while online and it will work offline after that.";
+        box.appendChild(off);
+    }
     const p = document.createElement("p");
     p.textContent = message;
-    const home = document.createElement("a");
-    home.className = "button";
-    home.href = homePage();
-    home.textContent = "Back to home";
     box.append(p);
-    if (action) {
-        const extra = document.createElement("a");
-        extra.className = "button";
-        extra.href = action.href;
-        extra.textContent = action.label;
-        box.append(extra, document.createTextNode(" "));
+    const actions = document.createElement("div");
+    actions.className = "play-error-actions";
+    const link = (href, label) => {
+        const a = document.createElement("a");
+        a.className = "button";
+        a.href = href;
+        a.textContent = label;
+        actions.appendChild(a);
+    };
+    if (action) link(action.href, action.label);
+    // Round 33: try again, the other engine, and the details to report it
+    if (!embed) {
+        const again = document.createElement("button");
+        again.type = "button";
+        again.className = "button";
+        again.textContent = "Try again";
+        again.addEventListener("click", () => location.reload());
+        actions.appendChild(again);
+        const other = currentEngine && Object.keys(ENGINES).find((id) => id !== currentEngine);
+        if (other && (!action || !String(action.href).includes("engine=" + other)) && (params.get("url") || params.get("file") || params.get("id") || params.get("cid"))) {
+            link(engineSwitchUrl(other), "Try " + ENGINES[other].name);
+        }
+        const copy = document.createElement("button");
+        copy.type = "button";
+        copy.className = "button";
+        copy.textContent = "Copy details";
+        copy.addEventListener("click", () => {
+            const text = [message, "Page: " + location.href, "Engine: " + (currentEngine || "?"), "Browser: " + navigator.userAgent, "Online: " + navigator.onLine, "Threads: " + !!window.crossOriginIsolated].join("\n");
+            navigator.clipboard.writeText(text).then(() => { copy.textContent = "Copied"; }, () => { copy.textContent = "Select the text above to copy it"; });
+        });
+        actions.appendChild(copy);
     }
-    box.append(home);
+    link(homePage(), "Back to home");
+    box.appendChild(actions);
     $("display").textContent = "";
     $("display").appendChild(box);
+}
+
+// ---------- round 33: share, full screen, hide-bar mode, slow loading ----------
+/** A link that opens this game again, when it has one (games from a folder, a web address or the showcase). */
+function shareableLink() {
+    if (params.get("cid") || params.get("id")) return null;
+    if (!(params.get("url") || (params.get("folder") && params.get("file")))) return null;
+    const url = new URL(location.href);
+    for (const k of ["autoplay"]) url.searchParams.delete(k);
+    return url.href;
+}
+async function shareGame(title) {
+    const url = shareableLink();
+    if (!url) return;
+    if (navigator.share && view.phone) {
+        try { await navigator.share({ title, text: title + ": play it in the browser", url }); return; } catch (e) { if (e.name === "AbortError") return; }
+    }
+    try {
+        await navigator.clipboard.writeText(url);
+        banner("Link copied: it opens this game.", "ok");
+    } catch (e) {
+        banner("Link: " + url, "ok");
+    }
+}
+function setupBarActions(title) {
+    if (embed) return;
+    const share = () => shareGame(title);
+    if (shareableLink()) {
+        $("shareBtn").hidden = false;
+        $("sheetShare").hidden = false;
+        $("shareBtn").addEventListener("click", share);
+        $("sheetShare").addEventListener("click", share);
+    }
+    if (document.fullscreenEnabled) {
+        $("fsBtn").hidden = false;
+        $("fsBtn").addEventListener("click", () => {
+            const E = window.EJS_emulator;
+            if (E && E.toggleFullscreen && E.started) E.toggleFullscreen(!(document.fullscreenElement || document.webkitFullscreenElement));
+            else if (document.fullscreenElement) document.exitFullscreen();
+            else $("display").requestFullscreen().catch(() => {});
+        });
+    }
+    $("hideBarBtn").hidden = false;
+    const setHidden = (on) => {
+        document.body.classList.toggle("bar-hidden", on);
+        $("showBar").hidden = !on;
+        try { localStorage.setItem("ejs-bar-hidden", on ? "1" : ""); } catch (e) { /* storage blocked */ }
+        window.dispatchEvent(new Event("resize"));
+    };
+    $("hideBarBtn").addEventListener("click", () => setHidden(true));
+    $("showBar").addEventListener("click", () => setHidden(false));
+    let remembered = false;
+    try { remembered = localStorage.getItem("ejs-bar-hidden") === "1"; } catch (e) { /* storage blocked */ }
+    if (remembered && !view.phone) setHidden(true);
+}
+/** A game that is still loading after 20 seconds gets a way out. */
+function watchSlowStart(engineId) {
+    if (embed || engineId !== "emulatorjs") return;
+    setTimeout(() => {
+        const E = window.EJS_emulator;
+        if (!E || E.started || E.failedToStart || document.querySelector(".play-error")) return;
+        const other = Object.keys(ENGINES).find((id) => id !== engineId);
+        banner("This game is taking a while to start. A slow connection is the usual reason; it carries on loading meanwhile.", "warn", [
+            ["Try " + ENGINES[other].name, () => { location.href = engineSwitchUrl(other); }],
+            ["Reload", () => location.reload()],
+            ["Keep waiting", null]
+        ]);
+    }, 20000);
 }
 
 // ---------- dropdowns ----------
@@ -501,6 +602,7 @@ function showLibrary(engine, engineId, onlyFolder) {
     if (playable.length === 1) prefetchCore(playable[0].system, engineId);
     $("display").textContent = "";
     $("display").appendChild(box);
+    extras.enhanceLibrary(box);
     const first = box.querySelector(".games button:not(:disabled)");
     if (first) first.focus({ preventScroll: true });
     $("hint").textContent = total ? "Arrow keys or Tab to move, Enter to play" : "";
@@ -575,6 +677,7 @@ async function main() {
     // ?engine= wins, then this session's choice; the home page asks when nothing is chosen yet.
     // Kiosk screens always use EmulatorJSMod, whose menus can be locked down.
     let engineId = embed ? "emulatorjs" : (getEngine() || "emulatorjs");
+    currentEngine = engineId;
     if (!embed) setEngine(engineId);
     fillEngines(engineId);
     // Links between games keep the engine
@@ -612,6 +715,7 @@ async function main() {
         }
         current = { platform: folder ? folder.folder : null, game: null };
         libraryMode = true;
+        if (!embed) extras.setupRomDrop();
         fillPlatforms();
         fillGames();
         showLibrary(engine, engineId, folder ? folder.folder : null);
@@ -640,6 +744,7 @@ async function main() {
     const depth25 = (embed ? flag("depth25") : readOptions().depth25) && (game.system === "nes" || game.system === "snes");
     if (depth25 && engineId !== "emulatorjs") {
         engineId = "emulatorjs";
+        currentEngine = engineId;
         fillEngines(engineId);
     }
     const engine = await ENGINES[engineId].load();
@@ -678,6 +783,25 @@ async function main() {
     $("title").title = game.name + " · " + labelFor(game.system) + (game.patch ? " · patched" : "");
     started = true;
     document.body.classList.add("playing");
+    setupBarActions(gameTitle(game.name));
+    watchSlowStart(engineId);
+    // Round 34: previous / next / random, game info and core switcher, ROM drop, PiP, Alt+Enter, shared moments
+    if (!embed) {
+        extras.setupNavigation(folders, current);
+        extras.setupInfo(game, current);
+        extras.setupRomDrop();
+        extras.setupFavorite(game);
+        if (engineId === "emulatorjs") {
+            extras.setupQuickButtons();
+            extras.setupPip();
+            extras.setupAltEnter();
+            extras.setupMoment(shareableLink);
+            extras.loadMomentFromLink();
+        }
+    }
+    // The engine's own "could not start" screen offers the other engine too
+    const otherEngine = Object.keys(ENGINES).find((id) => id !== engineId);
+    if (otherEngine && !embed) window.EJS_errorHelp = { otherEngine: { label: "Try " + ENGINES[otherEngine].name, href: engineSwitchUrl(otherEngine) } };
     try {
         const result = await engine.launch({
             container: "#game",

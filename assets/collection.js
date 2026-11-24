@@ -784,6 +784,26 @@ function fillEngine() {
 }
 
 // ---------- start ----------
+// ---------- default games ----------
+const SEEDED_KEY = "ejs-collection-seeded";
+async function seedDefaults() {
+    let done = false;
+    try { done = localStorage.getItem(SEEDED_KEY) === "1"; } catch (e) { /* storage blocked */ }
+    if (done || (await store.list()).length) return;
+    const hb = (await (await fetch("homebrew/index.json")).json()).games || [];
+    for (const g of hb) {
+        const res = await fetch(`homebrew/${g.folder}/${g.rom}`);
+        if (!res.ok) continue;
+        const blob = await res.blob();
+        const rec = await store.add({ file: new File([blob], g.rom), name: g.rom, system: g.system, core: g.core || null, title: g.title, sha1: g.sha1, shelves: ["Homebrew"], source: "Homebrew showcase" });
+        try {
+            const pic = g.screenshots && g.screenshots[0] ? await fetch(`homebrew/${g.folder}/${g.screenshots[0]}`) : null;
+            if (pic && pic.ok) await store.setCover(rec.id, await pic.blob(), { auto: true });
+        } catch (e) { /* no cover */ }
+    }
+    try { localStorage.setItem(SEEDED_KEY, "1"); } catch (e) { /* storage blocked */ }
+}
+
 async function main() {
     await loadManifest();
     available = SYSTEMS.filter(([id]) => isAvailable(id));
@@ -817,6 +837,8 @@ async function main() {
         const files = e.dataTransfer.items && e.dataTransfer.items[0] && e.dataTransfer.items[0].webkitGetAsEntry ? await filesFromDrop(e.dataTransfer.items) : [...e.dataTransfer.files];
         review(files);
     });
+    // First visit to an empty collection: start with the bundled homebrew games (once; removing them later sticks)
+    try { await seedDefaults(); } catch (e) { /* offline or storage blocked: the collection just starts empty */ }
     try {
         await refresh();
     } catch (e) {

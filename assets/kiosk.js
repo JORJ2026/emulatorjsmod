@@ -1020,6 +1020,8 @@ async function openSetup() {
         const c = catalog.find((x) => x.id === g.id);
         if (c && !g.controls && c.controls) g.controls = c.controls;
     }
+    // First set-up on this screen: start with every bundled homebrew game ticked (staff can untick any of them)
+    if (!selected.size && !readJSON(CONFIG_KEY)) for (const c of catalog) if (c.id.startsWith("hb:")) selected.set(c.id, Object.assign({}, c));
     renderOrder();
     renderGames();
     renderCheck(readJSON(CONFIG_KEY + "-check"));

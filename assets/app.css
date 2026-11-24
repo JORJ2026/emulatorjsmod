@@ -63,6 +63,16 @@ body.play { display: flex; flex-direction: column; height: 100vh; height: 100dvh
 #bar .hint { white-space: nowrap; }
 body.play #display { flex: 1; min-height: 0; position: relative; background: #000; }
 body.play #game { width: 100%; height: 100%; }
+/* Round 33: game page actions, hide-bar mode */
+body.play { overscroll-behavior: none; }
+.bar-actions { display: flex; gap: .4rem; margin-left: auto; }
+.bar-actions .button { padding: .3rem .7rem; font-size: .9rem; }
+body.play.bar-hidden #bar { display: none; }
+.show-bar { position: fixed; top: max(8px, env(safe-area-inset-top)); left: 8px; z-index: 50; padding: .25rem .6rem; border-radius: 1rem; background: rgba(22, 26, 32, .8); color: #e6e9ed; border: 1px solid var(--line); font-size: .8rem; opacity: .45; cursor: pointer; }
+.show-bar:hover, .show-bar:focus-visible { opacity: 1; }
+.show-bar[hidden] { display: none; }
+.play-error .play-error-actions { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: .8rem; }
+.play-error .play-error-offline { color: #f0c36b; }
 .play-error { max-width: 32rem; margin: 3rem auto; padding: 1rem 1.2rem; text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: .75rem; }
 @media (max-width: 640px) { #bar .hint { display: none; } #bar select { max-width: 44vw; } }
 .engine-tools { display: flex; flex-wrap: wrap; gap: .35rem; }
@@ -1141,3 +1151,30 @@ body.cls-projector .cls-presenter { font-size: 20px; }
   @page { margin: 1.6cm; }
 }
 @media (max-width: 900px) { .dev-keys { display: none; } }
+
+/* Round 34: game info, library tools, dropping a game */
+dialog.info-dialog { max-width: 36rem; width: calc(100% - 2rem); padding: 1.25rem; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: .9rem; }
+dialog.info-dialog::backdrop { background: rgba(0,0,0,.65); }
+dialog.info-dialog h2 { margin: 0 0 .6rem; font-size: 1.2rem; }
+.info-list { display: grid; grid-template-columns: max-content 1fr; gap: .25rem .9rem; margin: 0 0 .8rem; }
+.info-list dt { color: var(--muted); }
+.info-list dd { margin: 0; overflow-wrap: anywhere; }
+.info-list .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; }
+#title { cursor: pointer; }
+.library-tools { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .6rem 0; }
+.library-tools input[type=search] { flex: 1 1 12rem; min-width: 0; padding: .45rem .6rem; border-radius: .4rem; border: 1px solid var(--line); background: #0d1014; color: var(--text); font: inherit; }
+.library-tools select { padding: .4rem; border-radius: .4rem; }
+.library-tools .continue { flex-basis: 100%; text-align: left; }
+.library .games button .meta { display: block; color: var(--muted); font-size: .75rem; }
+body.drop-hover #display { outline: 3px dashed var(--accent, #4da3ff); outline-offset: -6px; }
+
+/* Round 35: favourites, library tools, notes */
+.library .games li { position: relative; }
+.library .games button.fav { all: unset; position: absolute; right: .4rem; top: 50%; transform: translateY(-50%); width: auto; padding: .2rem .45rem; cursor: pointer; color: var(--warn); font-size: 1.05rem; border-radius: .3rem; background: transparent; }
+.library .games button.fav:hover, .library .games button.fav:focus-visible { background: #1e2a36; }
+.library .games li:has(button[data-fav="1"]) > button:first-child { padding-right: 2.2rem; }
+.library-recent { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.library-recent .chip { padding: .2rem .6rem; font-size: .85rem; }
+dialog.info-dialog .info-notes { width: 100%; box-sizing: border-box; margin: 0 0 .8rem; padding: .5rem; border-radius: .4rem; border: 1px solid var(--line); background: #0d1014; color: var(--text); font: inherit; resize: vertical; }
+body.drop-hover #display::after { content: "Drop a game file to play it"; position: absolute; inset: auto 0 1.5rem 0; text-align: center; font-weight: 700; color: var(--text); text-shadow: 0 1px 4px #000; pointer-events: none; }
+.library .games li { min-width: 0; }

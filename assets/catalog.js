@@ -41,5 +41,8 @@ export async function loadCatalog() {
     try {
         for (const r of await collection.list()) items.push({ id: "col:" + r.id, source: "My Collection (this device)", title: r.title, system: r.system, core: r.core || null, cid: r.id, image: null, caption: "" });
     } catch (e) { /* no collection */ }
-    return items.filter((i) => isAvailable(i.system));
+    // The bundled homebrew games are also copied into the data/ library folders: list each game once (the showcase entry wins)
+    const key = (name) => name.toLowerCase().replace(/\.[a-z0-9]+$/, "").replace(/[^a-z0-9]/g, "");
+    const hbFiles = new Set(items.filter((i) => i.source === "Homebrew showcase").map((i) => i.system + "/" + key(i.url.split("/").pop())));
+    return items.filter((i) => !(i.id.startsWith("lib:") && hbFiles.has(i.system + "/" + key(i.id.split("/").pop()))) && isAvailable(i.system));
 }

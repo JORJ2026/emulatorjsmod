@@ -140,7 +140,8 @@ export function timeAgo(time) {
     if (minutes < 1) return "just now";
     if (minutes < 60) return minutes + " min ago";
     if (minutes < 1440) return Math.round(minutes / 60) + " h ago";
-    return Math.round(minutes / 1440) + " days ago";
+    const days = Math.round(minutes / 1440);
+    return days === 1 ? "1 day ago" : days + " days ago";
 }
 export function formatPlaytime(seconds) {
     if (seconds < 60) return "";
