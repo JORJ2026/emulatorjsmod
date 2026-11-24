@@ -1212,6 +1212,12 @@ class EJS_Frontend {
             settingButton[2].classList.toggle("ejs_settings_text", this.settingsMenuOpen);
         }, this.settingParent, true);
         this.elements.menu.appendChild(this.settingParent);
+        // Round 34: opened from the F1 panel and Shift+F1
+        this.openSettingsMenu = () => {
+            if (this.settingsMenuOpen) return;
+            if (this.elements.menu) this.elements.menu.classList.remove("ejs_menu_bar_hidden");
+            settingButton[0].click();
+        };
         this.closeSettingsMenu = () => {
             if (!this.settingsMenu) return;
             this.settingsMenuOpen = false;
@@ -3363,6 +3369,8 @@ class EJS_Frontend {
         let funcs = [];
         let settings = {};
         this.changeSettingOption = (title, newValue, startup) => {
+            // NES and SNES can't turn the 2xScaleHQ shader off (see lockedShader in emulator.js)
+            if (title === "shader" && this.ejs.allowedShader) newValue = this.ejs.allowedShader(newValue);
             this.ejs.allSettings[title] = newValue;
             if (startup !== true) {
                 this.settings[title] = newValue;
@@ -3516,7 +3524,9 @@ class EJS_Frontend {
                 "bicubic": this.localization("Bicubic"),
                 "mix-frames": this.localization("Mix frames"),
             };
-            let shaderMenu = {
+            // NES and SNES always have a shader on (2xScaleHQ by default), so they get no "Disabled" choice
+            const lockedShader = this.ejs.lockedShader ? this.ejs.lockedShader() : null;
+            let shaderMenu = lockedShader ? {} : {
                 "disabled": this.localization("Disabled"),
             };
             for (const shaderName in this.ejs.shaders) {
@@ -3526,7 +3536,7 @@ class EJS_Frontend {
                     shaderMenu[shaderName] = shaderName;
                 }
             }
-            addToMenu(this.localization("Shaders"), "shader", shaderMenu, "disabled", graphicsOptions, true);
+            addToMenu(this.localization("Shaders"), "shader", shaderMenu, lockedShader || "disabled", graphicsOptions, true);
         }
 
         if (this.ejs.supportsWebgl2 && !this.ejs.requiresWebGL2(this.ejs.getCore())) {

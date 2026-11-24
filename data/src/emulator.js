@@ -1191,6 +1191,12 @@ class EmulatorJS {
             },
             getInputText: (options) => {
                 return this.frontend.showInputPrompt(options);
+            },
+            // Round 34: a core that stops (out of memory, an unsupported instruction) is reported with a way back
+            onAbort: (what) => {
+                this.coreAborted = String(what || "aborted");
+                console.error("[EJS] core stopped:", what);
+                if (this.enhancements && this.enhancements.onCoreCrash) this.enhancements.onCoreCrash(this.coreAborted);
             }
         }).then(module => {
             this.Module = module;
@@ -1220,6 +1226,8 @@ class EmulatorJS {
                 this.frontend.hideDisksButton();
             }
             this.loadSettings();
+            // NES and SNES: 2xScaleHQ, whatever the saved settings say
+            this.applyLockedShader();
             this.frontend.updateCheatUI();
             this.frontend.updateGamepadLabels();
             if (!this.muted) this.setVolume(this.volume);
@@ -2192,7 +2200,24 @@ class EmulatorJS {
             this.frontend.setLightgunCursor(this.lightgunActive);
         }
     }
+    /**
+     * NES and SNES always use the 2xScaleHQ shader: it is their default no matter what was saved, it is set again at
+     * every start, and it can't be switched off (another shader may be chosen for the rest of a session).
+     */
+    lockedShader() {
+        const system = this.getCore(true);
+        return (system === "nes" || system === "snes") && this.shaders && this.shaders["2xScaleHQ.glslp"] ? "2xScaleHQ.glslp" : null;
+    }
+    allowedShader(value) {
+        const locked = this.lockedShader();
+        return locked && (!value || value === "disabled" || !this.shaders[value]) ? locked : value;
+    }
+    applyLockedShader() {
+        const locked = this.lockedShader();
+        if (locked && this.frontend.changeSettingOption) this.frontend.changeSettingOption("shader", locked);
+    }
     menuOptionChanged(option, value) {
+        if (option === "shader") value = this.allowedShader(value);
         this.saveSettings();
         this.allSettings[option] = value;
         if (this.debug) console.log(option, value);
@@ -2476,6 +2501,11 @@ class EmulatorJS {
             captureCanvas.remove();
         });
         recorder.start();
+        // Round 33: the lag check does not measure while a video is being recorded
+        this.isRecording = true;
+        const done = () => { this.isRecording = false; };
+        recorder.addEventListener("stop", done, { once: true });
+        recorder.addEventListener("error", done, { once: true });
 
         return recorder;
     }

@@ -19,6 +19,12 @@
             "short": "Game Boy Color"
         },
         {
+            "folder": "GBA",
+            "label": "Game Boy Advance",
+            "system": "gba",
+            "short": "Game Boy Advance"
+        },
+        {
             "folder": "GG",
             "label": "Sega Game Gear",
             "system": "segaGG",
